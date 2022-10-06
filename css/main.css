@@ -1,5 +1,6 @@
 .container{
-   width: 800px;
+   width: 100%;
+   max-width: 800px;
    margin: 0px auto;
    padding: 0px 20px;
 }
@@ -10,6 +11,33 @@
    list-style-type: none;
    margin-top: 10px;
 }
+.inp-box{
+   display: flex;
+   align-items: center;
+   margin: 0px auto;
+   text-align: center;
+}
 .btn-box{
    margin-top: 25px;
+}
+.js-inp{
+   width: 100%;
+   max-width: 300px;
+}
+
+@media only screen and (max-width: 576px){
+   .inp-box{
+      display: block;
+   }
+   .js-inp{
+      max-width: 320px;
+      margin-bottom: 15px;
+   }
+   .diaz-btn{
+      display: block;
+      text-align: left;
+   }
+   .fox-btn{
+      margin-bottom: 10px;
+   }
 }
