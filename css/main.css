@@ -1,0 +1,15 @@
+.container{
+   width: 800px;
+   margin: 0px auto;
+   padding: 0px 20px;
+}
+
+.js-list{
+   margin: 0px;
+   padding: 0px;
+   list-style-type: none;
+   margin-top: 10px;
+}
+.btn-box{
+   margin-top: 25px;
+}
