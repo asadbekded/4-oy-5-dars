@@ -4,6 +4,7 @@ const elList = document.querySelector('.js-list');
 const elStr1 = document.querySelector('.js-str1');
 const elStr2 = document.querySelector('.js-str2');
 const elStr3 = document.querySelector('.js-str3');
+const elBtns = document.querySelector('.btn-box');
 
 const todos = []
 
@@ -72,6 +73,20 @@ elList.addEventListener('click', function(evt) {
       findedItem.isComplate = !findedItem.isComplate
       
       renderTodos(todos, elList)
+   }
+})
+
+elBtns.addEventListener('click', function(evt) {
+   if(evt.target.matches('.btn-all')){
+      renderTodos(todos, elList)
+   }
+   if(evt.target.matches('.btn-comp')){
+      const result = todos.filter((el) => el.isComplate);
+      renderTodos(result, elList)
+   }
+   if(evt.target.matches('.btn-uncomp')){
+      const result = todos.filter((el) => !el.isComplate);
+      renderTodos(result, elList)
    }
 })
 
