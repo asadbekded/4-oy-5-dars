@@ -9,6 +9,11 @@ const todos = []
 
 let renderTodos = (array, list) => {
    list.innerHTML = ''
+
+   elStr1.textContent = todos.length
+   elStr2.textContent = todos.filter((el) => el.isComplate).length;
+   elStr3.textContent = todos.filter((el) => !el.isComplate).length;
+
    array.forEach((item) => {
       let newItem = document.createElement('li');
       let newSpan = document.createElement('span');
@@ -44,16 +49,10 @@ elForm.addEventListener('submit', function(evt) {
    elInpVal = elInp.value
    elInp.value = ''
    todos.push({
-      id: todos.length,
+      id: todos.length ? todos[todos.length - 1].id + 1 : 1,
       text: elInpVal,
       isComplate: false,
    })
-
-   elStr1.textContent = todos.length
-
-   let NoComplate = todos.filter((el) => !el.isComplate)
-   elStr3.textContent = NoComplate.length
-
 
    renderTodos(todos, elList)
 })
@@ -64,14 +63,6 @@ elList.addEventListener('click', function(evt) {
       let findedIndex = todos.findIndex((el) => el.id == todoId)
       todos.splice(findedIndex, 1)
 
-      elStr1.textContent = todos.length
-
-      let Complate = todos.filter((el) => el.isComplate)
-      elStr2.textContent = Complate.length
-
-      let NoComplate = todos.filter((el) => !el.isComplate)
-      elStr3.textContent = NoComplate.length
-
       renderTodos(todos, elList)
    }
 
@@ -80,12 +71,6 @@ elList.addEventListener('click', function(evt) {
       let findedItem = todos.find((el) => el.id == todoId)
       findedItem.isComplate = !findedItem.isComplate
       
-      let Complate = todos.filter((el) => el.isComplate)
-      elStr2.textContent = Complate.length
-
-      let NoComplate = todos.filter((el) => !el.isComplate)
-      elStr3.textContent = NoComplate.length
-
       renderTodos(todos, elList)
    }
 })
