@@ -6,11 +6,15 @@ const elStr2 = document.querySelector('.js-str2');
 const elStr3 = document.querySelector('.js-str3');
 const elBtns = document.querySelector('.btn-box');
 
-const todos = []
+const localData = JSON.parse(window.localStorage.getItem('list'))
+
+
+const todos = localData || []
+
 
 let renderTodos = (array, list) => {
    list.innerHTML = ''
-
+   
    elStr1.textContent = todos.length
    elStr2.textContent = todos.filter((el) => el.isComplate).length;
    elStr3.textContent = todos.filter((el) => !el.isComplate).length;
@@ -45,6 +49,9 @@ let renderTodos = (array, list) => {
    })
 }
 
+renderTodos(todos, elList)
+
+
 elForm.addEventListener('submit', function(evt) {
    evt.preventDefault();
    elInpVal = elInp.value
@@ -56,6 +63,8 @@ elForm.addEventListener('submit', function(evt) {
    })
 
    renderTodos(todos, elList)
+   window.localStorage.setItem('list', JSON.stringify(todos))
+
 })
 
 elList.addEventListener('click', function(evt) {
@@ -65,6 +74,7 @@ elList.addEventListener('click', function(evt) {
       todos.splice(findedIndex, 1)
 
       renderTodos(todos, elList)
+      window.localStorage.setItem('list', JSON.stringify(todos))
    }
 
    if(evt.target.matches('.js-checked')){
@@ -73,6 +83,7 @@ elList.addEventListener('click', function(evt) {
       findedItem.isComplate = !findedItem.isComplate
       
       renderTodos(todos, elList)
+      window.localStorage.setItem('list', JSON.stringify(todos))
    }
 })
 
@@ -88,7 +99,57 @@ elBtns.addEventListener('click', function(evt) {
       const result = todos.filter((el) => !el.isComplate);
       renderTodos(result, elList)
    }
+   if(evt.target.matches('.js-delete')){
+      window.localStorage.removeItem('list')
+      window.location.reload();
+      renderTodos(result, elList)
+   }
 })
+
+
+let elModeBtn = document.querySelector('.btn-mode');;
+var theme = false;
+
+elModeBtn.addEventListener('click', function () {
+   console.log((theme = !theme));
+   window.localStorage.setItem('theme', theme ? 'dark' : 'light')
+   changeTheme()
+})
+
+function changeTheme () {
+   if(window.localStorage.getItem('theme') == 'dark'){
+      document.body.style.backgroundColor = '#222'
+      elModeBtn.setAttribute('class', 'btn btn-light')
+      elModeBtn.textContent = 'Light'
+   }else{
+      document.body.style.backgroundColor = '#fff'
+      elModeBtn.setAttribute('class', 'btn btn-dark')
+      elModeBtn.textContent = 'Dark'
+   }
+}
+changeTheme()
+
+
+
+
+
+
+// elModeBtn.addEventListener('click', function () {
+//    console.log((theme = !theme));
+//    window.localStorage.setItem('theme', theme ?'dark': 'light')
+//    changeTheme()
+// })
+
+// function changeTheme(){
+//    if(window.localStorage.getItem('theme') == 'dark'){
+//       document.body.style.backgroundColor = '#333'
+//       elModeBtn.setAttribute('class', 'btn btn-light')
+//    }else{
+//       document.body.style.backgroundColor = '#fff'
+//       elModeBtn.setAttribute('class', 'btn btn-dark')
+//    }
+// }
+// changeTheme()
 
 
 
